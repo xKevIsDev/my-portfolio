@@ -4,9 +4,6 @@ import React, { useState } from 'react'
 import {
   FileIcon,
   FolderIcon,
-  MailIcon,
-  GithubIcon,
-  LinkedinIcon,
   CodeIcon,
   UserIcon,
   BookOpenIcon,
