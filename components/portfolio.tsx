@@ -6,10 +6,7 @@ import {
   FolderIcon,
   CodeIcon,
   UserIcon,
-  BookOpenIcon,
-  AwardIcon,
   ChevronRightIcon,
-  ChevronDownIcon,
   GithubIcon,
   TwitterIcon,
   MailIcon
