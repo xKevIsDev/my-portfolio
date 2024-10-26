@@ -9,8 +9,12 @@ import {
   BookOpenIcon,
   AwardIcon,
   ChevronRightIcon,
-  ChevronDownIcon
+  ChevronDownIcon,
+  GithubIcon,
+  TwitterIcon,
+  MailIcon
 } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const files = {
   about: `// ABOUT ME
@@ -167,7 +171,7 @@ Let's connect and create something extraordinary!
 `,
 }
 
-export function PortfolioComponent() {
+export default function PortfolioComponent() {
   const [activeTab, setActiveTab] = useState('about')
   const [expandedFolders, setExpandedFolders] = useState(['Portfolio'])
 
@@ -181,107 +185,185 @@ export function PortfolioComponent() {
 
   const SyntaxHighlight = ({ code }: { code: string }) => {
     const highlightedCode = code
-      .replace(/(\/\/.*)/g, '<span class="text-green-400">$1</span>')
+      .replace(/(\/\/.*)/g, '<span class="text-emerald-400">$1</span>')
       .replace(/(^.*:)/gm, '<span class="text-pink-400">$1</span>')
-      .replace(/(-{3,})/g, '<span class="text-yellow-300">$1</span>')
-      .replace(/(\b(FRONTEND|BACKEND|DEVOPS & TOOLS|OTHER|AVAILABILITY)\b)/g, '<span class="text-blue-300 font-bold">$1</span>')
-      .replace(/(\d\..*)/g, '<span class="text-yellow-200">$1</span>')
+      .replace(/(-{3,})/g, '<span class="text-amber-300">$1</span>')
+      .replace(/(\b(FRONTEND|BACKEND|DEVOPS & TOOLS|OTHER|AVAILABILITY)\b)/g, '<span class="text-cyan-300 font-bold">$1</span>')
+      .replace(/(\d\..*)/g, '<span class="text-amber-200">$1</span>')
+      .replace(/(\b(React|Next\.js|Vue\.js|TypeScript|Node\.js|Python|Docker|AWS)\b)/g, '<span class="text-purple-400">$1</span>')
+      .replace(/(@\w+)/g, '<span class="text-blue-400">$1</span>')
+      .replace(/(https?:\/\/\S+)/g, '<span class="text-blue-400 underline">$1</span>')
 
     return (
-      <pre className="font-mono text-xs leading-5 p-4" dangerouslySetInnerHTML={{ __html: highlightedCode }} />
+      <pre className="font-mono text-sm leading-6 p-4" dangerouslySetInnerHTML={{ __html: highlightedCode }} />
     )
   }
 
+  const socialLinks = [
+    { icon: <GithubIcon className="w-4 h-4" />, label: 'GitHub', link: 'https://github.com/xKevIsDev' },
+    { icon: <TwitterIcon className="w-4 h-4" />, label: 'Twitter', link: 'https://twitter.com/KevIsDev' },
+    { icon: <MailIcon className="w-4 h-4" />, label: 'Email', link: 'mailto:kevinmcgivern97@gmail.com' },
+  ]
+
   return (
-    <div className='flex flex-col h-screen text-sm bg-[#1e1e1e] text-gray-300'>
-    <div className="flex flex-col h-screen text-sm bg-[#1e1e1e] text-gray-300">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className='flex flex-col h-screen text-sm bg-[#1e1e1e] text-gray-300'
+    >
       {/* Top Bar */}
-      <div className="flex items-center bg-[#3c3c3c] p-2">
+      <motion.div 
+        initial={{ y: -20 }}
+        animate={{ y: 0 }}
+        className="flex items-center bg-[#2d2d2d] p-2 border-b border-[#1e1e1e]"
+      >
         <div className="flex space-x-2">
-          <div className="w-3 h-3 rounded-full bg-red-500 flex items-center justify-center text-xs text-black/50 font-bold">k</div>
-          <div className="w-3 h-3 rounded-full bg-yellow-500 flex items-center justify-center text-xs text-black/50 font-bold">e</div>
-          <div className="w-3 h-3 rounded-full bg-green-500 flex items-center justify-center text-xs text-black/50 font-bold">v</div>
+          <motion.div whileHover={{ scale: 1.2 }} className="w-3 h-3 rounded-full bg-red-500 cursor-pointer" />
+          <motion.div whileHover={{ scale: 1.2 }} className="w-3 h-3 rounded-full bg-yellow-500 cursor-pointer" />
+          <motion.div whileHover={{ scale: 1.2 }} className="w-3 h-3 rounded-full bg-green-500 cursor-pointer" />
         </div>
-        <div className="ml-4 text-sm ">KevIsDev - Portfolio.code-workspace</div>
-      </div>
+        <motion.div 
+          initial={{ x: -20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          className="ml-4 text-sm font-medium"
+        >
+          KevIsDev - Portfolio.code-workspace
+        </motion.div>
+      </motion.div>
 
       {/* Main Content */}
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
-        <div className="w-64 bg-[#252526] p-2 overflow-y-auto">
+        <motion.div 
+          initial={{ x: -250 }}
+          animate={{ x: 0 }}
+          className="w-64 bg-[#252526] p-2 overflow-y-auto border-r border-[#1e1e1e]"
+        >
           <div className="mb-4">
-            <div className="flex items-center mb-2 cursor-pointer" onClick={() => toggleFolder('Portfolio')}>
-              {expandedFolders.includes('Portfolio') ? <ChevronDownIcon className="w-4 h-4 mr-1" /> : <ChevronRightIcon className="w-4 h-4 mr-1" />}
+            <motion.div 
+              whileHover={{ x: 5 }}
+              className="flex items-center mb-2 cursor-pointer" 
+              onClick={() => toggleFolder('Portfolio')}
+            >
+              <AnimatePresence mode='wait'>
+                <motion.div
+                  key={expandedFolders.includes('Portfolio') ? 'down' : 'right'}
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: expandedFolders.includes('Portfolio') ? 90 : 0 }}
+                >
+                  <ChevronRightIcon className="w-4 h-4 mr-1" />
+                </motion.div>
+              </AnimatePresence>
               <FolderIcon className="w-4 h-4 mr-2 text-yellow-400" />
               <span>Portfolio</span>
-            </div>
-            {expandedFolders.includes('Portfolio') && (
-              <div className="ml-4">
-                {Object.keys(files).map(file => (
-                  <div key={file} className="flex items-center mb-1 cursor-pointer" onClick={() => setActiveTab(file)}>
-                    <FileIcon className="w-4 h-4 mr-2 text-blue-400" />
-                    <span className={activeTab === file ? 'text-white' : ''}>{file}.txt</span>
-                  </div>
-                ))}
-              </div>
-            )}
+            </motion.div>
+            <AnimatePresence>
+              {expandedFolders.includes('Portfolio') && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="ml-4"
+                >
+                  {Object.keys(files).map((file, index) => (
+                    <motion.div
+                      key={file}
+                      initial={{ x: -20, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ delay: index * 0.1 }}
+                      className={`flex items-center mb-1 cursor-pointer hover:bg-[#2d2d2d] rounded px-2 py-1 ${
+                        activeTab === file ? 'bg-[#37373d]' : ''
+                      }`}
+                      onClick={() => setActiveTab(file)}
+                    >
+                      <FileIcon className="w-4 h-4 mr-2 text-blue-400" />
+                      <span className={activeTab === file ? 'text-white' : ''}>{file}.txt</span>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
-        </div>
+        </motion.div>
 
         {/* Editor Area */}
         <div className="flex-1 flex flex-col">
           {/* Tabs */}
-          <div className="flex bg-[#2d2d2d]">
+          <div className="flex bg-[#2d2d2d] border-b border-[#1e1e1e]">
             {Object.keys(files).map((tab) => (
-              <div
+              <motion.div
                 key={tab}
-                className={`px-4 py-2 cursor-pointer ${activeTab === tab ? 'bg-[#1e1e1e] text-white border-t-2 border-blue-500' : 'text-gray-400'}`}
+                whileHover={{ backgroundColor: '#37373d' }}
+                className={`px-4 py-2 cursor-pointer flex items-center ${
+                  activeTab === tab ? 'bg-[#1e1e1e] text-white border-t-2 border-blue-500' : 'text-gray-400'
+                }`}
                 onClick={() => setActiveTab(tab)}
               >
+                <FileIcon className="w-4 h-4 mr-2" />
                 {tab}.txt
-              </div>
+              </motion.div>
             ))}
           </div>
 
           {/* Tab Content */}
           <div className="flex-1 overflow-hidden bg-[#1e1e1e] relative">
-            <div className="absolute inset-0 overflow-auto">
-              <div className="flex">
-                <div className="text-right pr-4 select-none text-gray-600" style={{ minWidth: '2rem' }}>
-                  {(files[activeTab as keyof typeof files] || '').split('\n').map((_, i) => (
-                    <div key={i}>{i + 1}</div>
-                  ))}
+            <AnimatePresence mode='wait'>
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="absolute inset-0 overflow-auto"
+              >
+                <div className="flex">
+                  <div className="text-right pr-4 select-none text-gray-600 border-r border-[#333] py-4" style={{ minWidth: '3rem' }}>
+                    {(files[activeTab as keyof typeof files] || '').split('\n').map((_, i) => (
+                      <div key={i} className="px-2">{i + 1}</div>
+                    ))}
+                  </div>
+                  <SyntaxHighlight code={files[activeTab as keyof typeof files] || ''} />
                 </div>
-                <SyntaxHighlight code={files[activeTab as keyof typeof files] || ''} />
-              </div>
-            </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
-          {/* Minimap */}
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-[#252526] opacity-30"></div>
         </div>
       </div>
-    </div><div className="flex justify-between items-center bg-[#007acc] text-white px-4 py-1 text-xs">
+
+      {/* Status Bar */}
+      <motion.div 
+        initial={{ y: 20 }}
+        animate={{ y: 0 }}
+        className="flex justify-between items-center bg-[#007acc] text-white px-4 py-1.5 text-xs"
+      >
         <div className="flex items-center space-x-4">
-          <div className="flex items-center">
+          <motion.div whileHover={{ scale: 1.05 }} className="flex items-center">
             <CodeIcon className="w-4 h-4 mr-1" />
             <span>Plain Text</span>
-          </div>
-          <div className="flex items-center">
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.05 }} className="flex items-center">
             <UserIcon className="w-4 h-4 mr-1" />
             <span>KevIsDev</span>
-          </div>
+          </motion.div>
         </div>
-        <div className="flex items-center space-x-4">
-          <div className="flex items-center">
-            <BookOpenIcon className="w-4 h-4 mr-1" />
-            <span>Portfolio v1.0.0</span>
-          </div>
-          <div className="flex items-center">
-            <AwardIcon className="w-4 h-4 mr-1" />
-            <span>Unlimited Years Exp.</span>
-          </div>
+        <div className="flex items-center space-x-6">
+          {socialLinks.map((social, index) => (
+            <motion.a
+              key={social.label}
+              href={social.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              className="flex items-center hover:text-blue-200 transition-colors"
+            >
+              {social.icon}
+              <span className="ml-1">{social.label}</span>
+            </motion.a>
+          ))}
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   )
 }
