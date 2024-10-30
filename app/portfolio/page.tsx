@@ -1,6 +1,6 @@
-'use client'
+"use client"
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   FileIcon,
   FolderIcon,
@@ -9,9 +9,13 @@ import {
   ChevronRightIcon,
   GithubIcon,
   TwitterIcon,
-  MailIcon
+  MailIcon,
+  ArrowLeftIcon,
+  MenuIcon,
+  XIcon
 } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useRouter } from 'next/navigation'
 
 const files = {
   about: `// ABOUT ME
@@ -40,8 +44,7 @@ When I'm not immersed in code, you can find me:
 - Mentoring aspiring developers
 - Enjoying a good cup of coffee while brainstorming new ideas
 
-Let's build something amazing together!
-`,
+Let's build something amazing together!`,
   projects: `// MY PROJECTS
 // ============
 
@@ -86,8 +89,7 @@ Let's build something amazing together!
    - Exportable UI code
 
 // Each project showcases my ability to create end-to-end solutions,
-// implement complex features, and deliver high-quality user experiences.
-`,
+// implement complex features, and deliver high-quality user experiences.`,
   skills: `// TECHNICAL SKILLS
 // =================
 
@@ -140,8 +142,7 @@ OTHER
 - Mobile-First Development
 
 // Continuously expanding my skill set and staying
-// up-to-date with the latest industry trends.
-`,
+// up-to-date with the latest industry trends.`,
   contact: `// GET IN TOUCH
 // =============
 
@@ -164,13 +165,24 @@ Open for:
 Let's connect and create something extraordinary!
 
 // Don't hesitate to reach out. I'm just a message away
-// from turning your ideas into reality.
-`,
+// from turning your ideas into reality.`,
 }
 
 export default function PortfolioComponent() {
+  const router = useRouter()
   const [activeTab, setActiveTab] = useState('about')
   const [expandedFolders, setExpandedFolders] = useState(['Portfolio'])
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY })
+    }
+
+    window.addEventListener("mousemove", handleMouseMove)
+    return () => window.removeEventListener("mousemove", handleMouseMove)
+  }, [])
 
   const toggleFolder = (folder: string) => {
     setExpandedFolders(prev =>
@@ -182,9 +194,9 @@ export default function PortfolioComponent() {
 
   const SyntaxHighlight = ({ code }: { code: string }) => {
     const highlightedCode = code
-      .replace(/(\/\/.*)/g, '<span class="text-emerald-400">$1</span>')
-      .replace(/(^.*:)/gm, '<span class="text-pink-400">$1</span>')
-      .replace(/(-{3,})/g, '<span class="text-amber-300">$1</span>')
+      .replace(/(\/\/.*)/g, '<span class="text-teal-400">$1</span>')
+      .replace(/(^.*:)/gm, '<span class="text-purple-400">$1</span>')
+      .replace(/(-{3,})/g, '<span class="text-orange-400">$1</span>')
       .replace(/(\b(FRONTEND|BACKEND|DEVOPS & TOOLS|OTHER|AVAILABILITY)\b)/g, '<span class="text-cyan-300 font-bold">$1</span>')
       .replace(/(\d\..*)/g, '<span class="text-amber-200">$1</span>')
       .replace(/(\b(React|Next\.js|Vue\.js|TypeScript|Node\.js|Python|Docker|AWS)\b)/g, '<span class="text-purple-400">$1</span>')
@@ -206,93 +218,125 @@ export default function PortfolioComponent() {
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className='flex flex-col h-screen text-sm bg-[#1e1e1e] text-gray-300'
+      className="flex flex-col h-screen text-sm bg-gradient-to-br from-purple-950 via-slate-900 to-teal-950 text-gray-300"
     >
       {/* Top Bar */}
       <motion.div 
         initial={{ y: -20 }}
         animate={{ y: 0 }}
-        className="flex items-center bg-[#2d2d2d] p-2 border-b border-[#1e1e1e]"
+        className="flex items-center justify-between bg-black/40 backdrop-blur-sm p-2 border-b border-gray-800"
       >
-        <div className="flex space-x-2">
-          <motion.div whileHover={{ scale: 1.2 }} className="w-3 h-3 rounded-full bg-red-500 cursor-pointer" />
-          <motion.div whileHover={{ scale: 1.2 }} className="w-3 h-3 rounded-full bg-yellow-500 cursor-pointer" />
-          <motion.div whileHover={{ scale: 1.2 }} className="w-3 h-3 rounded-full bg-green-500 cursor-pointer" />
+        <div className="flex items-center">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => router.push('/')}
+            className="mr-4 p-1 hover:bg-white/10 rounded-md"
+          >
+            <ArrowLeftIcon className="w-5 h-5" />
+          </motion.button>
+          <div className="flex space-x-2">
+            <motion.div whileHover={{ scale: 1.2 }} className="w-3 h-3 rounded-full bg-red-500 cursor-pointer" />
+            <motion.div whileHover={{ scale: 1.2 }} className="w-3 h-3 rounded-full bg-yellow-500 cursor-pointer" />
+            <motion.div whileHover={{ scale: 1.2 }} className="w-3 h-3 rounded-full bg-green-500 cursor-pointer" />
+          </div>
+          <motion.div 
+            initial={{ x: -20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            className="ml-4 text-sm font-medium bg-gradient-to-r from-white via-teal-300 to-white bg-clip-text text-transparent hidden sm:block"
+          >
+            KEVISDEV - Portfolio.code-workspace
+          </motion.div>
         </div>
-        <motion.div 
-          initial={{ x: -20, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          className="ml-4 text-sm font-medium"
+        <button
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          className="p-1 hover:bg-white/10 rounded-md lg:hidden"
         >
-          KevIsDev - Portfolio.code-workspace
-        </motion.div>
+          {isSidebarOpen ? <XIcon className="w-5 h-5" /> : <MenuIcon className="w-5 h-5" />}
+        </button>
       </motion.div>
 
       {/* Main Content */}
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-hidden relative">
+        {/* Sidebar - Mobile Overlay */}
+        <AnimatePresence>
+          {isSidebarOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsSidebarOpen(false)}
+              className="fixed inset-0 bg-black/50 lg:hidden z-20"
+            />
+          )}
+        </AnimatePresence>
+
         {/* Sidebar */}
-        <motion.div 
-          initial={{ x: -250 }}
-          animate={{ x: 0 }}
-          className="w-64 bg-[#252526] p-2 overflow-y-auto border-r border-[#1e1e1e]"
-        >
-          <div className="mb-4">
-            <motion.div 
-              whileHover={{ x: 5 }}
-              className="flex items-center mb-2 cursor-pointer" 
-              onClick={() => toggleFolder('Portfolio')}
-            >
-              <AnimatePresence mode='wait'>
+        <div className={`
+          lg:w-64 w-64 bg-black/40 backdrop-blur-sm border-r border-gray-800
+          fixed lg:static h-full z-30
+          transform lg:transform-none
+          ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+          transition-transform duration-200 ease-in-out
+        `}>
+          <div className="p-2 h-full overflow-y-auto">
+            <div className="mb-4">
+              <div 
+                className="flex items-center mb-2 cursor-pointer" 
+                onClick={() => toggleFolder('Portfolio')}
+              >
                 <motion.div
-                  key={expandedFolders.includes('Portfolio') ? 'down' : 'right'}
-                  initial={{ rotate: 0 }}
                   animate={{ rotate: expandedFolders.includes('Portfolio') ? 90 : 0 }}
                 >
                   <ChevronRightIcon className="w-4 h-4 mr-1" />
                 </motion.div>
+                <FolderIcon className="w-4 h-4 mr-2 text-orange-400" />
+                <span className="text-gray-300">Portfolio</span>
+              </div>
+              
+              <AnimatePresence>
+                {expandedFolders.includes('Portfolio') && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="ml-4"
+                  >
+                    {Object.keys(files).map((file, index) => (
+                      <motion.div
+                        key={file}
+                        initial={{ x: -20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ delay: index * 0.1 }}
+                        className={`flex items-center mb-1 cursor-pointer hover:bg-white/5 rounded px-2 py-1 ${
+                          activeTab === file ? 'bg-white/10' : ''
+                        }`}
+                        onClick={() => {
+                          setActiveTab(file)
+                          setIsSidebarOpen(false)
+                        }}
+                      >
+                        <FileIcon className="w-4 h-4 mr-2 text-teal-400" />
+                        <span className={activeTab === file ? 'text-white' : ''}>{file}.txt</span>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                )}
               </AnimatePresence>
-              <FolderIcon className="w-4 h-4 mr-2 text-yellow-400" />
-              <span>Portfolio</span>
-            </motion.div>
-            <AnimatePresence>
-              {expandedFolders.includes('Portfolio') && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="ml-4"
-                >
-                  {Object.keys(files).map((file, index) => (
-                    <motion.div
-                      key={file}
-                      initial={{ x: -20, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      transition={{ delay: index * 0.1 }}
-                      className={`flex items-center mb-1 cursor-pointer hover:bg-[#2d2d2d] rounded px-2 py-1 ${
-                        activeTab === file ? 'bg-[#37373d]' : ''
-                      }`}
-                      onClick={() => setActiveTab(file)}
-                    >
-                      <FileIcon className="w-4 h-4 mr-2 text-blue-400" />
-                      <span className={activeTab === file ? 'text-white' : ''}>{file}.txt</span>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
+            </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Editor Area */}
         <div className="flex-1 flex flex-col">
           {/* Tabs */}
-          <div className="flex bg-[#2d2d2d] border-b border-[#1e1e1e]">
+          <div className="flex overflow-x-auto bg-black/40 backdrop-blur-sm border-b border-gray-800 scrollbar-hide">
             {Object.keys(files).map((tab) => (
               <motion.div
                 key={tab}
-                whileHover={{ backgroundColor: '#37373d' }}
-                className={`px-4 py-2 cursor-pointer flex items-center ${
-                  activeTab === tab ? 'bg-[#1e1e1e] text-white border-t-2 border-blue-500' : 'text-gray-400'
+                whileHover={{ backgroundColor: 'rgba(255, 255, 255, 0.05)' }}
+                className={`px-4 py-2 cursor-pointer flex items-center whitespace-nowrap ${
+                  activeTab === tab ? 'bg-black/20 text-white border-t-2 border-teal-500' : 'text-gray-400'
                 }`}
                 onClick={() => setActiveTab(tab)}
               >
@@ -303,7 +347,7 @@ export default function PortfolioComponent() {
           </div>
 
           {/* Tab Content */}
-          <div className="flex-1 overflow-hidden bg-[#1e1e1e] relative">
+          <div className="flex-1 overflow-hidden bg-black/20 backdrop-blur-sm relative">
             <AnimatePresence mode='wait'>
               <motion.div
                 key={activeTab}
@@ -312,13 +356,15 @@ export default function PortfolioComponent() {
                 exit={{ opacity: 0, y: -20 }}
                 className="absolute inset-0 overflow-auto"
               >
-                <div className="flex">
-                  <div className="text-right pr-4 select-none text-gray-600 border-r border-[#333] py-4" style={{ minWidth: '3rem' }}>
+                <div className="flex min-w-full">
+                  <div className="text-right pr-4 select-none text-gray-600 border-r border-gray-800 py-4" style={{ minWidth: '3rem' }}>
                     {(files[activeTab as keyof typeof files] || '').split('\n').map((_, i) => (
                       <div key={i} className="px-2">{i + 1}</div>
                     ))}
                   </div>
-                  <SyntaxHighlight code={files[activeTab as keyof typeof files] || ''} />
+                  <div className="overflow-auto w-full">
+                    <SyntaxHighlight code={files[activeTab as keyof typeof files] || ''} />
+                  </div>
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -330,7 +376,7 @@ export default function PortfolioComponent() {
       <motion.div 
         initial={{ y: 20 }}
         animate={{ y: 0 }}
-        className="flex justify-between items-center bg-[#007acc] text-white px-4 py-1.5 text-xs"
+        className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gradient-to-r from-purple-500  via-teal-500 to-orange-500 text-white px-4 py-1.5 text-xs gap-2 sm:gap-0"
       >
         <div className="flex items-center space-x-4">
           <motion.div whileHover={{ scale: 1.05 }} className="flex items-center">
@@ -342,7 +388,7 @@ export default function PortfolioComponent() {
             <span>KevIsDev</span>
           </motion.div>
         </div>
-        <div className="flex items-center space-x-6">
+        <div className="flex items-center space-x-4 sm:space-x-6">
           {socialLinks.map((social, index) => (
             <motion.a
               key={social.label}
@@ -353,14 +399,24 @@ export default function PortfolioComponent() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="flex items-center hover:text-blue-200 transition-colors"
+              className="flex items-center hover:text-teal-200 transition-colors"
             >
               {social.icon}
-              <span className="ml-1">{social.label}</span>
+              <span className="ml-1 hidden sm:inline">{social.label}</span>
             </motion.a>
           ))}
         </div>
       </motion.div>
+
+      {/* Interactive gradient overlay */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background: `radial-gradient(circle at ${mousePosition.x || 0}px ${
+            mousePosition.y || 0
+          }px, transparent 0%, rgba(0,0,0,0.5) 100%)`,
+        }}
+      />
     </motion.div>
   )
 }
