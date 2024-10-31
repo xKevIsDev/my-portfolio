@@ -76,12 +76,12 @@ export default function Component() {
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen">
+      <div className="relative z-10 flex flex-col items-center justify-center text-center min-h-screen">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-6xl md:text-8xl font-bold text-transparent bg-clip-text"
+          className="text-4xl md:text-8xl font-bold text-transparent bg-clip-text"
           style={{
             backgroundImage: `linear-gradient(
               225deg,
@@ -99,7 +99,7 @@ export default function Component() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
-          className="mt-8 text-gray-400 text-lg "
+          className="mt-8 text-gray-400 text-sm md:text-lg "
         >
           Constantly Learning, Perpetually Innovating, Always Delivering Excellence
         </motion.div>

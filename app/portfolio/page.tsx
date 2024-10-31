@@ -218,7 +218,7 @@ export default function PortfolioComponent() {
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="flex flex-col h-screen text-sm bg-gradient-to-br from-purple-950 via-slate-900 to-teal-950 text-gray-300"
+      className="overflow-auto flex flex-col h-screen text-sm bg-gradient-to-br from-purple-950 via-slate-900 to-teal-950 text-gray-300"
     >
       {/* Top Bar */}
       <motion.div 
@@ -328,7 +328,7 @@ export default function PortfolioComponent() {
         </div>
 
         {/* Editor Area */}
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col w-full">
           {/* Tabs */}
           <div className="flex overflow-x-auto bg-black/40 backdrop-blur-sm border-b border-gray-800 scrollbar-hide">
             {Object.keys(files).map((tab) => (
@@ -362,7 +362,7 @@ export default function PortfolioComponent() {
                       <div key={i} className="px-2">{i + 1}</div>
                     ))}
                   </div>
-                  <div className="overflow-auto w-full">
+                  <div className="overflow-auto w-full ">
                     <SyntaxHighlight code={files[activeTab as keyof typeof files] || ''} />
                   </div>
                 </div>
@@ -376,7 +376,7 @@ export default function PortfolioComponent() {
       <motion.div 
         initial={{ y: 20 }}
         animate={{ y: 0 }}
-        className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-gradient-to-r from-purple-500  via-teal-500 to-orange-500 text-white px-4 py-1.5 text-xs gap-2 sm:gap-0"
+        className="flex flex-row justify-between items-start sm:items-center bg-gradient-to-r from-purple-500  via-teal-500 to-orange-500 text-white px-4 py-1.5 text-xs gap-2 sm:gap-0"
       >
         <div className="flex items-center space-x-4">
           <motion.div whileHover={{ scale: 1.05 }} className="flex items-center">
