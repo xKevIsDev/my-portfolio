@@ -1,13 +1,21 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useEffect, useState, useRef } from "react"
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { useRouter } from "next/navigation"
+
+// Testimonial data
+const testimonials = [
+  { id: 1, text: "Kevin's work is exceptional. He delivered our project on time and continues to be a valuable asset to our team.", author: "0xConflict, Founder" },
+  { id: 2, text: "I highly recommend Kevin for any development project. His code is clean and efficient. His communication was top-notch.", author: "Steven Williams, Lead Developer" },
+  { id: 3, text: "Kevin's ability to translate our ideas into a functional and beautiful website was impressive.", author: "Emma Ferguson, Product Manager" },
+]
 
 export default function Component() {
   const router = useRouter()
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isLoading, setIsLoading] = useState(false)
+  const tickerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -81,7 +89,7 @@ export default function Component() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-4xl md:text-8xl font-bold text-transparent bg-clip-text"
+          className="text-4xl md:text-8xl font-bold text-transparent bg-clip-text animate-pulse"
           style={{
             backgroundImage: `linear-gradient(
               225deg,
@@ -99,7 +107,7 @@ export default function Component() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
-          className="mt-8 text-gray-400 text-sm md:text-lg "
+          className="mt-8 text-gray-400 text-sm md:text-lg"
         >
           Constantly Learning, Perpetually Innovating, Always Delivering Excellence
         </motion.div>
@@ -180,6 +188,35 @@ export default function Component() {
             </AnimatePresence>
           </div>
         </motion.button>
+      </div>
+
+      {/* Testimonial ticker */}
+      <div className="absolute bottom-0 left-0 right-0 overflow-hidden h-20 bg-gradient-to-t from-black/40 to-transparent">
+        <motion.div
+          ref={tickerRef}
+          className="flex whitespace-nowrap"
+          animate={{
+            x: [0, "-100%"],
+          }}
+          transition={{
+            repeat: Infinity,
+            repeatType: "loop",
+            duration: 30,
+            ease: "linear",
+          }}
+        >
+          {[...testimonials, ...testimonials].map((testimonial, index) => (
+            <div
+              key={`${testimonial.id}-${index}`}
+              className="inline-flex items-center justify-center px-8 py-4"
+            >
+              <p className="text-white/80 text-sm md:text-base italic">
+                &ldquo;{testimonial.text}&rdquo;
+                <span className="ml-2 text-teal-400 not-italic">- {testimonial.author}</span>
+              </p>
+            </div>
+          ))}
+        </motion.div>
       </div>
 
       {/* Interactive gradient overlay */}
