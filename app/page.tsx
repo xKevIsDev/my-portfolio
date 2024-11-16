@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState, useRef } from "react"
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { useRouter } from "next/navigation"
 
 // Testimonial data

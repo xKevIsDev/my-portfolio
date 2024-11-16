@@ -31,6 +31,7 @@ export default function Return() {
         setLoading(false);
       })
       .catch((err) => {
+        console.error(err);
         setError('Failed to load session status');
         setLoading(false);
       });
