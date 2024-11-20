@@ -6,9 +6,10 @@ import { useRouter } from "next/navigation"
 
 // Testimonial data
 const testimonials = [
-  { id: 1, text: "Kevin's work is exceptional. He delivered our project on time and continues to be a valuable asset to our team.", author: "0xConflict, Founder" },
-  { id: 2, text: "I highly recommend Kevin for any development project. His code is clean and efficient. His communication was top-notch.", author: "Steven Williams, Lead Developer" },
-  { id: 3, text: "Kevin's ability to translate our ideas into a functional and beautiful website was impressive.", author: "Emma Ferguson, Product Manager" },
+  { id: 1, text: "Kevin's work is exceptional. He delivered our project on time and continues to be a valuable asset to our team.", author: "0xConflict, Founder at CubeDAO" },
+  { id: 2, text: "I recently worked with Kev on a feedback tool, and I am thoroughly impressed. His expertise in development was evident throughout, delivering clean, efficient code that met all requirements. Communication was seamless, with regular updates and responsiveness to feedback. Most importantly, the project was completed on time, showcasing their reliability and professionalism. Highly recommended.", author: "Danijel Dercksen, Digital Director at ACT" },
+  { id: 3, text: "I highly recommend Kevin for any development project. His code is clean and efficient. His communication was top-notch.", author: "Steven Williams, Lead Developer" },
+  { id: 4, text: "Kevin's ability to translate our ideas into a functional and beautiful website was impressive.", author: "Emma Ferguson, Product Manager" },
 ]
 
 export default function Component() {

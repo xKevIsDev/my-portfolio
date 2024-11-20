@@ -16,14 +16,18 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "KevIsDev",
   description: "my portfolio",
+  metadataBase: new URL('https://kevisdev.vercel.app'),
+  other: {
+    cryptomus: '203a0614'
+  },
   openGraph: {
     title: "KevIsDev",
     description: "my portfolio",
-    url: "https://kevisdev.vercel.app", // Replace with your actual domain
+    url: "https://kevisdev.vercel.app",
     siteName: "KevIsDev Portfolio",
     images: [
       {
-        url: "/KevIsDev.png", // Replace with your actual image path
+        url: "/KevIsDev.png",
         width: 1200,
         height: 630,
       },
