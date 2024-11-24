@@ -41,7 +41,7 @@ problems with creative solutions.
 When I'm not immersed in code, you can find me:
 - Exploring the latest tech trends
 - Contributing to open-source projects
-- Mentoring aspiring developers
+- Coaching a local football team
 - Enjoying a good cup of coffee while brainstorming new ideas
 
 Let's build something amazing together!`,
@@ -68,15 +68,15 @@ Let's build something amazing together!`,
    - Offline mode with local storage sync
    - Collaborative task sharing
 
-3. WEATHER FORECAST DASHBOARD
+3. FLIXR
    --------------------------
-   Description: A responsive web app for detailed weather forecasts
-   Tech Stack: React, TypeScript, Weather API, Chart.js
+   Description: A responsive web app for searching and discovering movies & TV shows with an AI assistant
+   Tech Stack: Nextjs, TypeScript, API Integration, Tailwindcss
    Key Features:
-   - Integration of multiple weather data sources
-   - Interactive charts for temperature trends
-   - Location-based weather alerts
-   - 7-day forecast with hourly breakdowns
+   - Integration of multiple movie & TV show data sources
+   - Live chat with AI assistant for recommendations
+   - TMDB API for movie & TV show detailed information
+   - Responsive design for mobile & desktop
 
 4. GENERATIVE AI TO UI BUILDER
    ----------------------------
@@ -159,8 +159,9 @@ Twitter: @KevIsDev
 Open for:
 - Freelance projects
 - Full-time positions
-- Speaking engagements
-- Tech consultations
+- Part-time positions
+- Remote work
+- Collaboration
 
 Let's connect and create something extraordinary!
 
