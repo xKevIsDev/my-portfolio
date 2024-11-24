@@ -222,13 +222,57 @@ export default function PaymentPage() {
     <div className="min-h-screen flex w-full bg-gradient-to-br from-purple-950 via-slate-900 to-teal-950 gap-2 p-4 md:p-8">
 
             <div className="w-auto h-auto hidden md:block bg-black/30 backdrop-blur-sm rounded-xl p-8 border border-gray-800 shadow-2xl">
-                <div className="w-auto h-full flex flex-col items-center justify-between text-center">
-                    <h1 className="text-4xl md:text-3xl font-bold mb-3">
+                <div className="w-auto h-full flex flex-col items-center justify-between text-center space-y-6">
+                    <h1 className="text-4xl md:text-3xl font-bold">
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-purple-400">
-                        KevIsDev Payment Gateway
+                            KevIsDev Development Services
                         </span>
                     </h1>
-                    <p className="text-gray-400 text-sm text-center">Complete your transaction securely with Stripe</p>
+                    
+                    <div className="space-y-4">
+                        <h2 className="text-xl text-white font-semibold">Available Services:</h2>
+                        <ul className="text-gray-300 text-left space-y-2">
+                            <li className="flex items-center gap-2">
+                                <span className="text-teal-400">•</span> Custom Web Development
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-teal-400">•</span> Full-Stack Application Development
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-teal-400">•</span> API Integration & Development
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-teal-400">•</span> UI/UX Implementation
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-teal-400">•</span> Technical Consultation
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div className="space-y-2">
+                        <p className="text-gray-300 text-sm">
+                            Secure payment processing available through:
+                        </p>
+                        <div className="flex items-center justify-center gap-4">
+                            <span className="px-3 py-1 bg-[#635BFF]/10 text-[#635BFF] rounded-full text-sm">Stripe</span>
+                            <span className="px-3 py-1 bg-[#2775CA]/10 text-[#2775CA] rounded-full text-sm">Cryptomus</span>
+                            <span className="px-3 py-1 bg-[#0052FF]/10 text-[#0052FF] rounded-full text-sm">Coinbase</span>
+                        </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 text-sm text-gray-400">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" 
+                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                        <span>Secure payment processing with end-to-end encryption</span>
+                    </div>
+
+                    <div className="text-xs text-gray-500">
+                        By proceeding with payment, you agree to our terms of service and privacy policy.
+                        All services are delivered digitally upon payment confirmation.
+                    </div>
                 </div>
             </div>
     

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   description: "my portfolio",
   metadataBase: new URL('https://kevisdev.vercel.app'),
   other: {
-    cryptomus: '203a0614'
+    cryptomus: '278ce1bd'
   },
   openGraph: {
     title: "KevIsDev",
