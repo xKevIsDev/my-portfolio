@@ -270,8 +270,25 @@ export default function PaymentPage() {
                     </div>
 
                     <div className="text-xs text-gray-500">
-                        By proceeding with payment, you agree to our terms of service and privacy policy.
-                        All services are delivered digitally upon payment confirmation.
+                        By proceeding with payment, you agree to our{' '}
+                        <a 
+                            href="/terms" 
+                            className="text-teal-400 hover:underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            terms of service
+                        </a>{' '}
+                        and{' '}
+                        <a 
+                            href="/privacy" 
+                            className="text-teal-400 hover:underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            privacy policy
+                        </a>
+                        . All services are delivered digitally upon payment confirmation.
                     </div>
                 </div>
             </div>
