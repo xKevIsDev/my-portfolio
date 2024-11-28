@@ -8,7 +8,6 @@ import {
   useStripe,
   useElements,
 } from '@stripe/react-stripe-js';
-import { TbBrandCoinbase } from "react-icons/tb";
 import { BiQuestionMark } from 'react-icons/bi';
 
 
