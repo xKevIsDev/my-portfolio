@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     siteName: "KevIsDev Portfolio",
     images: [
       {
-        url: "/images/KevIsDev.png",
+        url: "https://kevisdev.tech/images/KevIsDev.png",
         width: 1200,
         height: 630,
       },
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "KevIsDev | Full-Stack Developer",
     description: "Crafting seamless digital experiences with cutting-edge technologies. Specialized in full-stack development, Let's build something amazing together.",
-    images: ["/images/KevIsDev.png"], // Replace with your actual image path
+    images: ["https://kevisdev.tech/images/KevIsDev.png"], // Replace with your actual image path
     creator: "@KevIsDev", // Replace with your Twitter handle
   },
   keywords: [
