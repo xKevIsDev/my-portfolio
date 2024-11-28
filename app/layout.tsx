@@ -14,20 +14,20 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "KevIsDev",
-  description: "my portfolio",
-  metadataBase: new URL('https://kevisdev.vercel.app'),
+  title: "KevIsDev | Full-Stack Developer",
+  description: "Crafting seamless digital experiences with cutting-edge technologies. Specialized in full-stack development, Let's build something amazing together.",
+  metadataBase: new URL('https://kevisdev.tech'),
   other: {
     cryptomus: '278ce1bd'
   },
   openGraph: {
-    title: "KevIsDev",
-    description: "my portfolio",
-    url: "https://kevisdev.vercel.app",
+    title: "KevIsDev | Full-Stack Developer",
+    description: "Crafting seamless digital experiences with cutting-edge technologies. Specialized in full-stack development, Let's build something amazing together.",
+    url: "https://kevisdev.tech",
     siteName: "KevIsDev Portfolio",
     images: [
       {
-        url: "/KevIsDev.png",
+        url: "/images/KevIsDev.png",
         width: 1200,
         height: 630,
       },
@@ -37,11 +37,21 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "KevIsDev's Portfolio",
-    description: "my portfolio",
-    images: ["/KevIsDev.png"], // Replace with your actual image path
+    title: "KevIsDev | Full-Stack Developer",
+    description: "Crafting seamless digital experiences with cutting-edge technologies. Specialized in full-stack development, Let's build something amazing together.",
+    images: ["/images/KevIsDev.png"], // Replace with your actual image path
     creator: "@KevIsDev", // Replace with your Twitter handle
   },
+  keywords: [
+    "Full-Stack Developer",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Web3",
+    "Payment Integration",
+    "Frontend Development",
+    "Backend Development",
+  ],
 };
 
 export default function RootLayout({

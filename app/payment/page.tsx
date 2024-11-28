@@ -58,7 +58,7 @@ function PaymentSummary({ amount }: { amount: number }) {
   );
 }
 
-function CheckoutForm({ amount }: { amount: number }) {
+function CheckoutForm({ amount, description }: { amount: number; description?: string }) {
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState<string | null>(null);
@@ -91,45 +91,109 @@ function CheckoutForm({ amount }: { amount: number }) {
     <form onSubmit={handleSubmit} className="space-y-6">
       <PaymentSummary amount={amount} />
       <div className="flex flex-col space-y-2">
-        {/* For Coinbase or other crypto payments (COMING SOON) */}
+        {/* Crypto payment options */}
         <div className="grid grid-cols-2 gap-2">
           <button
             type="button"
-            disabled
-            onClick={() => window.open('YOUR_COINBASE_COMMERCE_CHECKOUT_URL', '_blank')}
+            onClick={async () => {
+              if (!amount) {
+                setError('Please enter an amount');
+                return;
+              }
+              
+              setLoading(true);
+              try {
+                const response = await fetch('/api/create-coinbase-charge', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    amount: amount,
+                    description: description || 'Development Services'
+                  }),
+                });
+                
+                const data = await response.json();
+
+                if (!response.ok) {
+                  if (response.status === 401) {
+                    setError('Crypto payment temporarily unavailable');
+                    console.error('Coinbase Commerce authentication failed');
+                  } else {
+                    setError(data.error || 'Failed to create payment');
+                  }
+                  return;
+                }
+
+                if (data.error) {
+                  setError(data.error);
+                } else {
+                  // Store charge ID in localStorage for verification on return
+                  localStorage.setItem('coinbase_charge_id', data.id);
+                  window.location.href = data.hostedUrl;
+                }
+              } catch (err) {
+                setError('Failed to initialize crypto payment');
+                console.error('Coinbase payment error:', err);
+              } finally {
+                setLoading(false);
+              }
+            }}
             className="flex flex-col w-full items-start justify-center gap-1.5 px-3 py-2 border border-gray-700/70 text-sm font-semibold bg-[#1F2937] text-neutral-400 rounded-[8px] hover:text-white transition-colors"
+            disabled={loading}
           >
-            <TbBrandCoinbase className="w-4 h-4 fill-white p-0.5 text-white bg-blue-500 rounded-[4px]" />
-            Coinbase (unavailable)
+              <svg 
+                viewBox="0 0 1024 1024" 
+                xmlns="http://www.w3.org/2000/svg" 
+                className="w-5 h-5"
+              >
+                <g>
+                  <circle 
+                    cx="512" 
+                    cy="512" 
+                    r="512" 
+                    fill="#0052ff"
+                  />
+                  <path 
+                    d="M516.3 361.83c60.28 0 108.1 37.18 126.26 92.47H764C742 336.09 644.47 256 517.27 256 372.82 256 260 365.65 260 512.49S370 768 517.27 768c124.35 0 223.82-80.09 245.84-199.28H642.55c-17.22 55.3-65 93.45-125.32 93.45-83.23 0-141.56-63.89-141.56-149.68.04-86.77 57.43-150.66 140.63-150.66z" 
+                    fill="#fff"
+                  />
+                </g>
+              </svg>
+              {loading ? 'Processing...' : 'Coinbase'}
           </button>
 
           <button
             type="button"
             disabled
-            onClick={() => window.open('YOUR_COINBASE_COMMERCE_CHECKOUT_URL', '_blank')}
-            className="flex flex-col w-full items-start justify-center gap-1.5 px-3 py-2 border border-gray-700/70 text-sm font-semibold bg-[#1F2937] text-neutral-400 rounded-[8px] hover:text-white transition-colors"
+            className="flex flex-col w-full items-start justify-center gap-1.5 px-3 py-2 border border-gray-700/70 
+              text-sm font-semibold bg-[#1F2937] text-neutral-400 rounded-[8px]"
           >
-            <BiQuestionMark className="w-4 h-4 fill-white p-0.5 text-white rounded-[4px]" />
-            Coming Soon
+            <div className="flex items-center gap-2">
+              <BiQuestionMark className="w-4 h-4 fill-white p-0.5 text-white rounded-[4px]" />
+              Coming Soon
+            </div>
           </button>
-          {/* Add more alternative payment methods here */}
         </div>
+
+        {/* Stripe Payment Element */}
         <PaymentElement 
-            options={{
+          options={{
             layout: "tabs",
             defaultValues: {
-                billingDetails: {
+              billingDetails: {
                 name: '',
                 email: '',
-                }
+              }
             },
             wallets: {
-                googlePay: 'auto',
-                applePay: 'auto',
+              googlePay: 'auto',
+              applePay: 'auto',
             }
-            }}
+          }}
         />
-     </div>
+      </div>
       
       {error && (
         <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 text-red-400 text-sm">
@@ -398,7 +462,7 @@ export default function PaymentPage() {
                   appearance,
                 }}
               >
-                <CheckoutForm amount={parseFloat(amount)} />
+                <CheckoutForm amount={parseFloat(amount)} description={description} />
               </Elements>
 
               <div className="mt-8 flex items-center justify-center gap-2 text-sm text-gray-400">
