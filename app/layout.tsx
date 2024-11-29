@@ -39,8 +39,14 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "KevIsDev | Full-Stack Developer",
     description: "Crafting seamless digital experiences with cutting-edge technologies. Specialized in full-stack development, Let's build something amazing together.",
-    images: ["https://kevisdev.tech/images/KevIsDev.png"], // Replace with your actual image path
-    creator: "@KevIsDev", // Replace with your Twitter handle
+    images: [
+      {
+        url: "https://kevisdev.tech/images/twitter.png", // Ensure this is a full, direct path
+        width: 1200,
+        height: 630,
+      }
+    ],
+    creator: "@KevIsDev",
   },
   keywords: [
     "Full-Stack Developer",
