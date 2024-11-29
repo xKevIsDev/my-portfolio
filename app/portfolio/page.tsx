@@ -69,7 +69,7 @@ Let's build something amazing together!`,
    - Collaborative task sharing
 
 3. FLIXR
-   --------------------------
+   -----
    Description: A responsive web app for searching and discovering movies & TV shows with an AI assistant
    Tech Stack: Nextjs, TypeScript, API Integration, Tailwindcss
    Key Features:
@@ -79,7 +79,7 @@ Let's build something amazing together!`,
    - Responsive design for mobile & desktop
 
 4. GENERATIVE AI TO UI BUILDER
-   ----------------------------
+   ---------------------------
    Description: A web app that allows users to create UIs using Generative AI
    Tech Stack: React, Next.js, Tailwindcss, Supabase, Shadcn/ui, OpenAI
    Key Features:
@@ -87,6 +87,18 @@ Let's build something amazing together!`,
    - User-friendly interface for creating UIs
    - Real-time preview of UI components
    - Exportable UI code
+
+5. OPEN SOURCE BOLT REPO
+   ---------------------
+   Description: A web app by Stackblitz that allows users to create full-stack apps using AI
+   Tech Stack: Vite, Remix, Anthropic, Typescript, Webcontainers
+   Key Features:
+   - Integration of Anthropic for complex prompting and responses.
+   - User-friendly interface.
+   - Real-time preview of generated apps
+   - Deploy capability
+   - Project download
+   - In browser IDE and more...
 
 // Each project showcases my ability to create end-to-end solutions,
 // implement complex features, and deliver high-quality user experiences.`,
@@ -98,6 +110,7 @@ FRONTEND
 - React
 - Next.js
 - Vue.js
+- Vite
 - JavaScript (ES6+)
 - TypeScript
 - HTML5 & CSS3
@@ -140,6 +153,7 @@ OTHER
 - Security Best Practices
 - Cross-browser Compatibility
 - Mobile-First Development
+- AI integrations
 
 // Continuously expanding my skill set and staying
 // up-to-date with the latest industry trends.`,
